@@ -4,13 +4,48 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
+        h6 {
+            font-size: 30px;
+        }
         .h2-text {
             color: blue;
+        }
+
+        #header {
+            font-size: 50px;
+        }
+
+        div.CourseAuto > a {
+            color: green;
+        }
+
+        ul li {
+            color: aqua;
+        }
+
+        input[type="text"] {
+            border: 5px solid black;
+        }
+
+        a:hover {
+            color: green;
+        }
+
+        li::marker {
+            color: brown;
+        }
+
+        ul li:nth-child(2) {
+            color: darkblue;
+        }
+
+        ol li:nth-child(odd) {
+            color: slategrey;
         }
     </style>
 </head>
 <body>
-<div>
+<div class="Course">
     <h1 id="header">H1 text</h1>
     <h2 class="h2-text">H2 text</h2>
     <h6 class="h2-text">H6 text</h6>
@@ -47,6 +82,16 @@
         </tr>
         </thead>
 </table>
+</div>
+<div class="CourseAuto">
+    <a href="https://stepik.org/lesson/1452311/step/2?unit=1471322" target="_blank">CourseAuto</a>
+</div>
+<div class="nth">
+    <p>1</p>
+    <p>2</p>
+    <h6>3</h6>
+    <h5>4</h5>
+    <p>5</p>
 </div>
 </body>
 </html>
