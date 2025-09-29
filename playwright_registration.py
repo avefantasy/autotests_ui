@@ -1,9 +1,10 @@
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright
 
 with sync_playwright() as playwright:
     #Открытие браузера и создание страницы
     browser = playwright.chromium.launch(headless=False)
-    page = browser.new_page()
+    context = browser.new_context()
+    page = context.new_page()
 
     # Переход на страницу входа
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
@@ -24,10 +25,15 @@ with sync_playwright() as playwright:
     registration_button = page.get_by_test_id('registration-page-registration-button')
     registration_button.click()
 
-    # Проверка видимости заголовка Dashboard
-    dashboard_visible = page.get_by_test_id('dashboard-toolbar-title-text')
-    expect(dashboard_visible).to_be_visible()
-    expect(dashboard_visible).to_have_text("Dashboard")
+    context.storage_state(path="browser-state.json")
+
+    #Передача данных для авторизации из сохраненного json файла
+with sync_playwright() as playwright:
+    browser = playwright.chromium.launch(headless=False)
+    context = browser.new_context(storage_state="browser-state.json")
+    page = context.new_page()
+
+    page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/dashboard")
 
     # Задержка 5s
     page.wait_for_timeout(5000)
