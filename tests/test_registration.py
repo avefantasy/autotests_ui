@@ -1,28 +1,20 @@
-from playwright.sync_api import expect, Page
+from playwright.sync_api import Page
 import pytest
+
+from pages.dashboard_page import DashboardPage
+from pages.registration_page import RegistrationPage
 
 @pytest.mark.regression
 @pytest.mark.registration
-def test_successful_registration(chromium_page: Page):
-    # Переход на страницу входа
-    chromium_page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
+def test_successful_registration(registration_page: RegistrationPage, dashboard_page:DashboardPage, chromium_page: Page):
+    # Переход на страницу регистрации
+    registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
 
-    # Заполнение email
-    registration_email_input = chromium_page.get_by_test_id('registration-form-email-input').locator('input')
-    registration_email_input.fill("user.name@gmail.com")
-
-    # Заполнение username
-    registration_username_input = chromium_page.get_by_test_id('registration-form-username-input').locator('input')
-    registration_username_input.fill("username")
-
-    # Заполнение password
-    registration_password_input = chromium_page.get_by_test_id('registration-form-password-input').locator('input')
-    registration_password_input.fill("password")
+    # Заполнение email, username и password
+    registration_page.fill_registration_form(email="user.name@gmail.com", username="username", password="password")
 
     # Нажатие на кнопку registration
-    registration_button = chromium_page.get_by_test_id('registration-page-registration-button')
-    registration_button.click()
+    registration_page.click_registration_button()
 
     # Проверка успешной регистрации, на экране Dashboard
-    dashboard_title = chromium_page.get_by_test_id('dashboard-toolbar-title-text')
-    expect(dashboard_title).to_be_visible()
+    dashboard_page.check_dashboard_title()
