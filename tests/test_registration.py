@@ -1,4 +1,3 @@
-from playwright.sync_api import Page
 import pytest
 
 from pages.dashboard_page import DashboardPage
@@ -6,7 +5,7 @@ from pages.registration_page import RegistrationPage
 
 @pytest.mark.regression
 @pytest.mark.registration
-def test_successful_registration(registration_page: RegistrationPage, dashboard_page:DashboardPage, chromium_page: Page):
+def test_successful_registration(registration_page: RegistrationPage, dashboard_page: DashboardPage):
     # Переход на страницу регистрации
     registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
 

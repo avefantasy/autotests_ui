@@ -22,11 +22,11 @@ def dashboard_page(chromium_page: Page) -> DashboardPage:
     return DashboardPage(page=chromium_page)
 
 # Фикстура инициализации CoursesListPage
-
+@pytest.fixture()
 def courses_list_page(chromium_page_with_state: Page) -> CoursesListPage:
     return CoursesListPage(page=chromium_page_with_state)
 
 # Фикстура инициализации CreateCoursePage
-
+@pytest.fixture()
 def create_course_page(chromium_page_with_state: Page) -> CreateCoursePage:
     return CreateCoursePage(page=chromium_page_with_state)

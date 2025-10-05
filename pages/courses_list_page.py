@@ -33,7 +33,7 @@ class CoursesListPage(BasePage):
         expect(self.courses_title).to_be_visible()
         expect(self.courses_title).to_have_text('Courses')
 
-    # Проверка иконки и отсутствия
+    # Проверка отсутствия курсов
     def check_visible_empty_view(self):
         expect(self.empty_view_icon).to_be_visible()
 
