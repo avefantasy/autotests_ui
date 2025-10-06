@@ -8,14 +8,22 @@ from pages.create_course_page import CreateCoursePage
 @pytest.mark.regression
 class TestCourses:
     def test_empty_courses_list(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
+
         # Переход на страницу Courses
         chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+
+        # Проверка NavBar и SideBar
+        courses_list_page.navbar.check_visible("username")
+        courses_list_page.sidebar.check_visible()
 
         # Проверка наличия и текста заголовка "Courses"
         courses_list_page.check_visible_courses_title()
 
         # Проверка отсутствия курсов
         courses_list_page.check_visible_empty_view()
+
+        #Проверка отображения кнопки создания курса
+        courses_list_page.check_visible_create_course_button()
 
     def test_create_course(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         # Переход на страницу создания курсов
