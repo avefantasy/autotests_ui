@@ -29,6 +29,8 @@ class TestCourses:
         # Переход на страницу создания курсов
         chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
 
+        courses_list_page.navbar.check_visible("username")
+
         # Проверка заголовка и неактивности кнопки создания курса
         create_course_page.check_visible_create_course_title()
         create_course_page.check_disabled_create_course_button()
