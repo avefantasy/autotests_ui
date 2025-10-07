@@ -29,23 +29,18 @@ class TestCourses:
         courses_list_page.navbar.check_visible("username")
 
         # Проверка заголовка и неактивности кнопки создания курса
-        create_course_page.check_visible_create_course_title()
-        create_course_page.check_disabled_create_course_button()
+        create_course_page.check_course_toolbar.check_visible()
 
         # Картинка предпросмотра и блок предпросмотра картинки курса
         # Кнопка загрузки, удаления картинки предпросмотра курса и блок с информацией о загружаемой картинке
         create_course_page.image_upload_widget.check_visible(is_image_uploaded=False)
 
-        # Кнопка загрузки, удаления картинки предпросмотра курса и блок с информацией о загружаемой картинке
-
         # Проверка формы создания курса
-        create_course_page.check_visible_create_course_form(title="", description="", estimated_time="", max_score="0", min_score="0")
+        create_course_page.create_course_form.check_visible(title="", description="", estimated_time="", max_score="0", min_score="0")
 
         # Проверка наличия заголовка "Exercises"
-        create_course_page.check_visible_exercises_title()
-
         # Проверка наличия кнопки создания задания
-        create_course_page.check_visible_create_exercise_button()
+        create_course_page.create_course_exercises_toolbar.check_visible()
 
         # Проверка отображения блока с пустыми заданиями
         create_course_page.check_visible_exercises_empty_view()
@@ -57,14 +52,21 @@ class TestCourses:
         create_course_page.image_upload_widget.check_visible(is_image_uploaded=True)
 
         # Заполнение формы создания курса
-        create_course_page.fill_create_course_form(title = "Playwright",
+        create_course_page.create_course_form.fill(title = "Playwright",
                                                 estimated_time = "2 weeks",
                                                 description = "Playwright",
                                                 max_score = "100",
                                                 min_score = "10")
 
+        # Проверка корректности введённых данных
+        create_course_page.create_course_form.check_visible(title="Playwright",
+                                                   estimated_time="2 weeks",
+                                                   description="Playwright",
+                                                   max_score="100",
+                                                   min_score="10")
+
         # Нажатие кнопки создания курса
-        create_course_page.click_create_course_button()
+        create_course_page.check_course_toolbar.click_create_course_button()
 
         # Проверка наличия кнопки создания курса и наличия заголовка "Courses"
         courses_list_page.toolbar_view.check_visible()
