@@ -1,3 +1,4 @@
+import re
 from playwright.sync_api import Page
 
 from elements.button import Button
@@ -17,7 +18,7 @@ class LoginPage(BasePage):
 
 
         self.login_button = Button(page, 'login-page-login-button', 'Login')
-        self.registration_link = Link(page, 'register-page-register-button', 'Registration')
+        self.registration_link = Link(page, 'login-page-registration-link', 'Registration')
         self.wrong_email_or_password_alert = Text(
             page,'login-page-wrong-email-or-password-alert', 'Wrong email or password')
 
@@ -27,8 +28,9 @@ class LoginPage(BasePage):
         self.login_button.click()
 
     # Нажатие ссылки регистрации
-    def click_registration_button(self):
+    def click_registration_link(self):
         self.registration_link.click()
+        self.check_current_url(re.compile(".*/#/auth/registration"))
 
     # Проверка сообщения об ошибке
     def check_visible_wrong_email_or_password_alert(self):
