@@ -1,21 +1,25 @@
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
+
+from elements.input import Input
+from elements.textarea import Textarea
+
 
 class CreateCourseFormComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.title_input = page.get_by_test_id('create-course-form-title-input').locator('input')
+        self.title_input = Input(page,'create-course-form-title-input', 'Title')
         self.estimated_time_input = (
-            page.get_by_test_id('create-course-form-estimated-time-input').locator('input')
+            Input(page,'create-course-form-estimated-time-input', 'Estimated Time')
         )
         self.description_textarea = (
             # При поиске поля описания будет найдено два тега textarea, берем первый из них
-            page.get_by_test_id('create-course-form-description-input').locator('textarea').first
+            Textarea(page,'create-course-form-description-input', 'Description')
         )
-        self.max_score_input = page.get_by_test_id('create-course-form-max-score-input').locator('input')
-        self.min_score_input = page.get_by_test_id('create-course-form-min-score-input').locator('input')
+        self.max_score_input = Input(page,'create-course-form-max-score-input', 'Max Score')
+        self.min_score_input = Input(page,'create-course-form-min-score-input', 'Min Score')
 
     def fill(self, title, estimated_time, description, max_score, min_score):
         self.title_input.fill(title)
@@ -25,9 +29,9 @@ class CreateCourseFormComponent(BaseComponent):
         self.min_score_input.fill(min_score)
 
     def check_visible(self, title, estimated_time, description, max_score, min_score):
-        expect(self.title_input).to_have_value(title)
-        expect(self.estimated_time_input).to_have_value(estimated_time)
-        expect(self.description_textarea).to_have_value(description)
-        expect(self.max_score_input).to_have_value(max_score)
-        expect(self.min_score_input).to_have_value(min_score)
+        self.title_input.check_have_value(title)
+        self.estimated_time_input.check_have_value(estimated_time)
+        self.description_textarea.check_have_value(description)
+        self.max_score_input.check_have_value(max_score)
+        self.min_score_input.check_have_value(min_score)
 
