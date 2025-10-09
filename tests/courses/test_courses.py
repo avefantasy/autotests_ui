@@ -7,6 +7,7 @@ from pages.courses.create_course_page import CreateCoursePage
 @pytest.mark.courses
 @pytest.mark.regression
 class TestCourses:
+    # Отсутствие курсов
     def test_empty_courses_list(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
 
         # Переход на страницу Courses
@@ -22,6 +23,7 @@ class TestCourses:
         # Проверка отсутствия курсов
         courses_list_page.check_visible_empty_view()
 
+    # Создание курса
     def test_create_course(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         # Переход на страницу создания курсов
         chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
@@ -78,4 +80,48 @@ class TestCourses:
                                                     min_score="10",
                                                     estimated_time="2 weeks")
 
+    # Изменение курса
+    def test_edit_course(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
+        # Переход на страницу создания курсов
+        chromium_page_with_state.goto(
+            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
 
+        # Загрузка картинки курса
+        create_course_page.image_upload_widget.upload_preview_image(file="./testdata/files/robot.png")
+
+        # Заполнение формы создания курса
+        create_course_page.create_course_form.fill(title="Playwright",
+                                                   estimated_time="2 weeks",
+                                                   description="Playwright",
+                                                   max_score="100",
+                                                   min_score="10")
+
+        # Нажатие кнопки создания курса
+        create_course_page.check_course_toolbar.click_create_course_button()
+
+        # Проверка корректности отображаемых данных на карточке курса
+        courses_list_page.course_view.check_visible(index=0,
+                                                    title="Playwright",
+                                                    max_score="100",
+                                                    min_score="10",
+                                                    estimated_time="2 weeks")
+
+        # Через меню карточки курса нажимаем на кнопку "Edit"
+        courses_list_page.view_menu.click_edit(index=0)
+
+        # Изменение данных формы создания курса
+        create_course_page.create_course_form.fill(title="PlaywrightTest",
+                                                   estimated_time="2 weeks test",
+                                                   description="Playwright test",
+                                                   max_score="90",
+                                                   min_score="20")
+
+        # Нажатие кнопки создания курса
+        create_course_page.check_course_toolbar.click_create_course_button()
+
+        # Проверка корректности обновлённых отображаемых данных на карточке курса
+        courses_list_page.course_view.check_visible(index=0,
+                                                    title="PlaywrightTest",
+                                                    max_score="90",
+                                                    min_score="20",
+                                                    estimated_time="2 weeks test")
