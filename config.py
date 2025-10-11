@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     tracing_dir: DirectoryPath
     browser_state_file: FilePath
 
+    def get_base_url(self) -> str:
+        return f"{self.app_url}/"
+
 
     @classmethod
     def initialize(cls) -> Self:  # Возвращает экземпляр класса Settings
@@ -55,8 +58,7 @@ class Settings(BaseSettings):
         return Settings(
             videos_dir=videos_dir,
             tracing_dir=tracing_dir,
-            browser_state_file=browser_state_file
-        )
+            browser_state_file=browser_state_file)
 
 # Инициализируем настройки в глобальную переменную
 settings = Settings.initialize()

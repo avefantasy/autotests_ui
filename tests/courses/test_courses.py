@@ -1,6 +1,7 @@
 from playwright.sync_api import Page
 import pytest
 import allure
+
 from tools.allure.tags import AllureTag
 
 
@@ -11,6 +12,10 @@ from tools.allure.epics import AllureEpic
 from tools.allure.features import AllureFeature
 from tools.allure.stories import AllureStory
 from allure_commons.types import Severity
+
+from tools.routes import AppRoute
+from config import settings
+
 
 @pytest.mark.courses
 @pytest.mark.regression
@@ -28,10 +33,10 @@ class TestCourses:
     def test_empty_courses_list(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
 
         # Переход на страницу Courses
-        chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+        chromium_page_with_state.goto(AppRoute.COURSES)
 
         # Проверка NavBar и SideBar
-        courses_list_page.navbar.check_visible("username")
+        courses_list_page.navbar.check_visible(settings.test_user.username)
         courses_list_page.sidebar.check_visible()
 
         # Проверка наличия и текста заголовка "Courses", отображения кнопки создания курса
@@ -45,9 +50,9 @@ class TestCourses:
     @allure.severity(Severity.CRITICAL)
     def test_create_course(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         # Переход на страницу создания курсов
-        chromium_page_with_state.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        chromium_page_with_state.goto(AppRoute.CREATE_COURSES)
 
-        courses_list_page.navbar.check_visible("username")
+        courses_list_page.navbar.check_visible(settings.test_user.username)
 
         # Проверка заголовка и неактивности кнопки создания курса
         create_course_page.check_course_toolbar.check_visible()
@@ -67,7 +72,7 @@ class TestCourses:
         create_course_page.check_visible_exercises_empty_view()
 
         # Загрузка картинки курса
-        create_course_page.image_upload_widget.upload_preview_image(file = "./testdata/files/robot.png")
+        create_course_page.image_upload_widget.upload_preview_image(settings.test_data.image_png_file)
 
         # Проверка, что блок загрузки изображения отображает состояние, когда картинка успешно загружена
         create_course_page.image_upload_widget.check_visible(is_image_uploaded=True)
@@ -104,11 +109,10 @@ class TestCourses:
     @allure.severity(Severity.CRITICAL)
     def test_edit_course(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         # Переход на страницу создания курсов
-        chromium_page_with_state.goto(
-            "https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create")
+        chromium_page_with_state.goto(AppRoute.CREATE_COURSES)
 
         # Загрузка картинки курса
-        create_course_page.image_upload_widget.upload_preview_image(file="./testdata/files/robot.png")
+        create_course_page.image_upload_widget.upload_preview_image(settings.test_data.image_png_file)
 
         # Заполнение формы создания курса
         create_course_page.create_course_form.fill(title="Playwright",
