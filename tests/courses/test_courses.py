@@ -30,10 +30,10 @@ class TestCourses:
     # Отсутствие курсов
     @allure.title("Check displaying of empty courses list")
     @allure.severity(Severity.NORMAL)
-    def test_empty_courses_list(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
+    def test_empty_courses_list(self, page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
 
         # Переход на страницу Courses
-        chromium_page_with_state.goto(AppRoute.COURSES)
+        page_with_state.goto(AppRoute.COURSES)
 
         # Проверка NavBar и SideBar
         courses_list_page.navbar.check_visible(settings.test_user.username)
@@ -48,9 +48,9 @@ class TestCourses:
     # Создание курса
     @allure.title("Create course")
     @allure.severity(Severity.CRITICAL)
-    def test_create_course(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
+    def test_create_course(self, page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         # Переход на страницу создания курсов
-        chromium_page_with_state.goto(AppRoute.CREATE_COURSES)
+        page_with_state.goto(AppRoute.CREATE_COURSES)
 
         courses_list_page.navbar.check_visible(settings.test_user.username)
 
@@ -107,9 +107,9 @@ class TestCourses:
     # Изменение курса
     @allure.title("Edit course")
     @allure.severity(Severity.CRITICAL)
-    def test_edit_course(self, chromium_page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
+    def test_edit_course(self, page_with_state: Page, courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
         # Переход на страницу создания курсов
-        chromium_page_with_state.goto(AppRoute.CREATE_COURSES)
+        page_with_state.goto(AppRoute.CREATE_COURSES)
 
         # Загрузка картинки курса
         create_course_page.image_upload_widget.upload_preview_image(settings.test_data.image_png_file)
