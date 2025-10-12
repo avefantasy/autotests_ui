@@ -48,7 +48,7 @@ class Settings(BaseSettings):
         videos_dir = DirectoryPath("./videos")
         tracing_dir = DirectoryPath("./tracing")
         allure_results_dir = DirectoryPath("./allure-results")
-        browser_state_file = FilePath("browser-state.json")
+        browser_state_file = FilePath("browser-state.json ")
 
         # Создаем директории, если они не существуют
         videos_dir.mkdir(exist_ok=True)  # Если директория существует, то игнорируем ошибку
