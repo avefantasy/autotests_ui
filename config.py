@@ -43,7 +43,7 @@ class Settings(BaseSettings):
 
 
     @classmethod
-    def initialize(cls) -> Self:  # Возвращает экземпляр класса Settings
+    def initialize(cls) -> Self:   # Возвращает экземпляр класса Settings
         # Указываем пути
         videos_dir = DirectoryPath("./videos")
         tracing_dir = DirectoryPath("./tracing")
