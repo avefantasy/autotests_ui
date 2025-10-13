@@ -32,7 +32,7 @@ with sync_playwright() as playwright:
     registration_password_input = page.get_by_test_id('registration-form-password-input').locator('input')
     expect(registration_password_input).to_be_visible()
 
-    # Проверка наличия элемента registration на странице
+    #  Проверка наличия элемента registration на странице
     registration_button = page.get_by_test_id('registration-page-registration-button')
     expect(registration_button).to_be_visible()
 
