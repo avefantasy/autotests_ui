@@ -50,44 +50,48 @@ jobs:
   # ВТОРАЯ ДЖОБА: генерация и публикация Allure отчёта
   publish-report:
     runs-on: ubuntu-latest
-    needs: run-tests  # Эта джоба запустится только после успешного выполнения run-tests
+    needs: run-tests
 
     steps:
-      # 1. Клонируем репозиторий для доступа к структуре проекта
+      # 1. Клонируем основной репозиторий
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # 2. Загружаем артефакт с результатами тестов из предыдущей джобы
+      # 2. Загружаем артефакт с результатами тестов
       - name: Download test results
         uses: actions/download-artifact@v4
         with:
-          name: allure-results         # Имя артефакта, созданного ранее
-          path: allure-results         # Папка, куда его распаковать
+          name: allure-results
+          path: allure-results
 
-      # 3. Клонируем ветку gh-pages (в неё будем публиковать отчёт)
-      - name: Get Allure history
+      # 3. Клонируем ветку gh-pages в папку gh-pages
+      - name: Get Allure history from gh-pages
         uses: actions/checkout@v4
-        continue-on-error: true        # Не останавливать процесс, если ветка gh-pages ещё не создана
+        continue-on-error: true
         with:
-          ref: gh-pages                # Клонируем ветку gh-pages
-          path: allure-history         # Сохраняем её в папку allure-history (для истории отчётов)
+          ref: gh-pages
+          path: gh-pages
 
-      # 4. Создаём папку allure-history, если она отсутствует
-      - name: Create allure-history folder if not exists
-        run: mkdir -p allure-history
+      # 4. Переносим папку истории из gh-pages в allure-history
+      - name: Copy history from previous report
+        run: |
+          mkdir -p allure-history
+          if [ -d "gh-pages/history" ]; then
+            cp -r gh-pages/history allure-history/
+          fi
 
-      # 5. Генерируем Allure отчёт, включая историю из предыдущих запусков
+      # 5. Генерируем новый Allure отчёт
       - name: Generate Allure Report with history
         uses: simple-elf/allure-report-action@v1.7
         with:
-          allure_results: allure-results   # Путь к свежим результатам тестов
-          allure_history: allure-history   # Путь к предыдущей истории отчётов
-          keep_reports: 20                 # Хранить историю 20 последних отчётов
+          allure_results: allure-results
+          allure_history: allure-history
+          keep_reports: 20
 
-      # 6. Публикуем Allure отчёт в ветке gh-pages (доступной через GitHub Pages)
+      # 6. Деплоим отчёт в ветку gh-pages
       - name: Deploy report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Токен GitHub для деплоя
-          publish_branch: gh-pages                   # Ветка для публикации отчёта
-          publish_dir: allure-history                # Папка с готовым Allure отчётом
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
