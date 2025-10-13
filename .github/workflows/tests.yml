@@ -1,4 +1,4 @@
-# Имя workflow, которое будет отображаться в интерфейсе GitHub Actions
+#Имя workflow, которое будет отображаться в интерфейсе GitHub Actions
 name: UI tests
 
 # Указываем, когда будет запускаться данный workflow
