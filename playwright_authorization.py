@@ -8,7 +8,7 @@ with sync_playwright() as playwright:
     # Переход на страницу входа
     page.goto("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/login")
 
-    # Заполнение email
+    # Заполнение  email
     email_input = page.get_by_test_id('login-form-email-input').locator('input')
     email_input.fill("user.name@gmail.com")
 
