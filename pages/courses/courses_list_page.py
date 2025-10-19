@@ -10,7 +10,6 @@ from components.courses.сourse_view_menu_component import CourseViewMenuCompone
 
 # Page Object для проверки страницы Courses
 class CoursesListPage(BasePage):
-    # Метод, хранящий локаторы
     def __init__(self, page: Page):
         super().__init__(page)
 
@@ -30,7 +29,6 @@ class CoursesListPage(BasePage):
         # Компонент для работы с меню курса
         self.view_menu = CourseViewMenuComponent(page)
 
-    # Проверка отсутствия курсов (С помощью компонента EmptyView)
     def check_visible_empty_view(self):
         self.empty_view.check_visible(
             title='There is no results',

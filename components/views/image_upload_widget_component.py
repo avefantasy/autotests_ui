@@ -29,7 +29,6 @@ class ImageUploadWidgetComponent(BaseComponent):
         self.remove_button = Button(page,f'{identifier}-image-upload-widget-remove-button', 'Remove')
         self.upload_input = FileInput(page,f'{identifier}-image-upload-widget-input', 'Input')
 
-        # Проверяет отображение виджета в зависимости от наличия загруженного изображения
     def check_visible(self, is_image_uploaded: bool = False):
         self.image_upload_info_icon.check_visible()
 
@@ -44,12 +43,10 @@ class ImageUploadWidgetComponent(BaseComponent):
         self.upload_button.check_visible()
 
         if is_image_uploaded:
-            # Если картинка загружена, проверяем состояние специфичное для загруженной картинки
             self.remove_button.check_visible()
             self.preview_image.check_visible()
 
         if not is_image_uploaded:
-            # Если картинка не загружена, проверяем наличие компонента EmptyViewComponent
             self.preview_empty_view.check_visible(
                 title='No image selected',
                 description='Preview of selected image will be displayed here'

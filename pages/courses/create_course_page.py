@@ -11,7 +11,6 @@ from components.courses.create_course_exercises_toolbar_view_component import Cr
 
 # Page Object для проверки страницы создания курса
 class CreateCoursePage(BasePage):
-    # Метод, хранящий локаторы
     def __init__(self, page: Page):
         super().__init__(page)
 

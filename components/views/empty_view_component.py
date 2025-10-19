@@ -16,13 +16,10 @@ class EmptyViewComponent(BaseComponent):
 
     @allure.step('Check visible empty view "{title}"')
     def check_visible(self, title: str, description: str):
-        # Проверяем видимость иконки
         self.icon.check_visible()
 
-        # Проверяем видимость заголовка и его текст
         self.title.check_visible()
         self.title.check_have_text(title)
 
-        # Проверяем видимость описания и его текст
         self.description.check_visible()
         self.description.check_have_text(description)

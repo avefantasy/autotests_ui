@@ -16,7 +16,6 @@ class CreateCourseFormComponent(BaseComponent):
             Input(page,'create-course-form-estimated-time-input', 'Estimated Time')
         )
         self.description_textarea = (
-            # При поиске поля описания будет найдено два тега textarea, берем первый из них
             Textarea(page,'create-course-form-description-input', 'Description')
         )
         self.max_score_input = Input(page,'create-course-form-max-score-input', 'Max Score')

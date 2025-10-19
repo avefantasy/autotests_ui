@@ -8,7 +8,7 @@ logger = get_logger("FILE_INPUT")
 class FileInput(BaseElement):
 
     @property
-    def type_of(self) -> str:  # Переопределяем свойство type_of
+    def type_of(self) -> str:
         return "file input"
 
     def set_input_files(self, file: str, nth: int = 0, **kwargs):

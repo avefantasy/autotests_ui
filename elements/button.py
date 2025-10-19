@@ -11,7 +11,7 @@ from ui_coverage_tool import ActionType
 class Button(BaseElement):
 
     @property
-    def type_of(self) -> str:  # Переопределяем свойство type_of
+    def type_of(self) -> str:
         return "button"
 
     def get_raw_locator(self, nth: int = 0, **kwargs) -> str:

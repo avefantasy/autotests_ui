@@ -23,5 +23,4 @@ class CoursesListToolbarViewComponent(BaseComponent):
 
     def click_create_course_button(self):
         self.create_course_button.click()
-        # Дополнительно проверим, что произошел редирект на правильную страницу
         self.check_current_url(re.compile(".*/#/courses/create"))

@@ -8,7 +8,6 @@ from components.charts.chart_view_component import ChartViewComponent
 
 # Page Object для проверки страницы Dashboard
 class DashboardPage(BasePage):
-    # Метод, хранящий локаторы
     def __init__(self, page: Page):
         super().__init__(page)
 

@@ -10,11 +10,9 @@ from components.authentication.login_form_component import LoginFormComponent
 
 # Page Object для страницы авторизации
 class LoginPage(BasePage):
-    # Метод, хранящий локаторы
     def __init__(self, page: Page):
         super().__init__(page)
 
-        # Компонент заполнения формы авторизации и проверки данных
         self.login_form = LoginFormComponent(page)
 
 
@@ -24,16 +22,13 @@ class LoginPage(BasePage):
             page,'login-page-wrong-email-or-password-alert', 'Wrong email or password')
 
 
-    # Нажатие кнопки авторизации
     def click_login_button(self):
         self.login_button.click()
 
-    # Нажатие ссылки регистрации
     def click_registration_link(self):
         self.registration_link.click()
         self.check_current_url(re.compile(".*/#/auth/registration"))
 
-    # Проверка сообщения об ошибке
     @allure.step("Check visible wrong email or password alert")
     def check_visible_wrong_email_or_password_alert(self):
         self.wrong_email_or_password_alert.check_visible()
